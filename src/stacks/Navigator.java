@@ -1,22 +1,40 @@
 package stacks;
 
-// TODO: Define the class Navigator that provides three navigation options where the user can:
-//       1. Set the current link via setCurrentLink(linkName) method.
-//       2. Replace the current link by going back one link via goBack() method.
-//       3. Replace the current link by going forward one link via goForward() method.
-
+/**
+ * provides three navigation options where the user can:
+ *  1. Set the current link via setCurrentLink(linkName) method.
+ *  2. Replace the current link by going back one link via goBack() method.
+ *  3. Replace the current link by going forward one link via goForward() method.
+ *
+ * @author Foothill College, Marian Zlateva
+ */
 public class Navigator {
     private String currentLink;
     private StackList<String> backLinks;
     private StackList<String> forwardLinks;
 
+    /**
+     * Sets currentLink to an empty String
+     * creates a new StackList for backLinks
+     * creates a new StackList for forwardLinks
+     */
     public Navigator(){
         this.currentLink = "";
-        this.backLinks = new StackList<>("back links");
-        this.forwardLinks = new StackList<>("forward links");
+        this.backLinks = new StackList<>("Back Links");
+        this.forwardLinks = new StackList<>("Forward Links");
     }
 
+    /**
+     * Sets the current link
+     * Places old current link to the back links
+     * Clears forwardLinks
+     * @param linkName the name of the current link
+     */
     public void setCurrentLink(String linkName){
+        if(currentLink == null){
+            return;
+        }
+
         if(currentLink!=linkName){
             //adds the top link to the backLinks list
             if(currentLink!="") {
@@ -30,9 +48,13 @@ public class Navigator {
         }
     }
 
+    /**
+     * goes back 1 link if there are any instances in backLinks
+     */
     public void goBack(){
         //only operate method if backLinks isn't empty
         if(backLinks.size()==0){
+            System.out.println("WARNING FOR OPERATION BELOW: NO BACK LINKS TO GO BACK TO");
             return;
         }
         //pushes current link to forward links
@@ -42,9 +64,13 @@ public class Navigator {
 
     }
 
+    /**
+     * goes forwards 1 link if there are any instances in forwardLinks
+     */
     public void goForward(){
         //only operate method if forwardLinks isn't empty
-        if(backLinks.size()==0){
+        if(forwardLinks.size()==0){
+            System.out.println("WARNING FOR OPERATION BELOW: NO FORWARD TO GO FORWARD TO");
             return;
         }
         //pushes current link to backLinks
@@ -53,14 +79,23 @@ public class Navigator {
         currentLink = forwardLinks.pop();
     }
 
+    /**
+     * @return the current link
+     */
     public String getCurrentLink() {
         return currentLink;
     }
 
+    /**
+     * @return the StackList of backLinks
+     */
     public StackList<String> getBackLinks() {
         return backLinks;
     }
 
+    /**
+     * @return the StackList of forwardLinks
+     */
     public StackList<String> getForwardLinks() {
         return forwardLinks;
     }
